@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QuickSort</title>
+</head>
+<body>
+
+</body>
+<script>
+    const quickSort =(arr)=> {
+        if (arr.length <= 1)
+            return arr
+        const pivot = arr.splice(Math.floor(Math.random()*(arr.length)), 1)[0]
+        let left = []
+        let right = []
+        arr.forEach((item, index)=>{
+            if (item < pivot) {
+                left.push(item)
+            } else {
+                right.push(item)
+            }
+        })
+        return (quickSort(left).concat(pivot, quickSort(right)))
+    }
+    const arr = [5,4,8,7,6,2,3,1]
+    console.log(quickSort(arr))
+
+</script>
+</html>

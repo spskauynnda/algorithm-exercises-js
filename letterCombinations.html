@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QuickSort</title>
+</head>
+<body>
+
+</body>
+<script>
+
+    const letterCombinations = function(digits) {
+        const map = digits.split('').map(function(item){
+            var _number = item - 0
+            return String.fromCharCode( _number*3 + 91)
+        })
+        let res = []
+        const dfs =(curStr, location)=> {
+            if (location >= map.length-1) {
+                for (let i=0; i<3; i++) {
+                    let _curStr = curStr.concat(String.fromCharCode(map[location].charCodeAt() + i))
+                    res.push(_curStr)
+                }
+                return res
+            }
+            for (let i=0; i<3; i++) {
+                let _curStr = curStr.concat(String.fromCharCode(map[location].charCodeAt() + i))
+                dfs(_curStr, location+1)
+            }
+        }
+        dfs("", 0)
+        return res
+    };
+    const digits = ""
+    console.log(letterCombinations(digits))
+</script>
+</html>
