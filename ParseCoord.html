@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>parseCoord</title>
+</head>
+<body>
+    <input onchange="onInputChange(this.value)">
+    <p id="result"></p>
+</body>
+<script>
+    /*
+       异常情况
+       1. 缺失
+       2. 错位
+       3. 不合法字符
+     */
+    function parseCoord(coord) {
+        // 异常处理
+        var errStatus = 'success'
+        function throwError(status, msg) {
+            errStatus = status
+            console.log('errStatus: ', errStatus)
+            console.log('异常原因: ', msg)
+        }
+
+        // 字母串转换
+        function parseColString(str) {
+            var sum = 0
+            str.split('').forEach(function (item) {
+                sum = sum*26 + (parseInt(item, 36) - 9)
+            })
+            return sum
+        }
+
+        // 单元格字符串校验
+        var flag = 0
+        var _index_ = 0
+        coord.split('').forEach(function (item, index) {
+            if (errStatus === 'success') {
+                // ('string' !== typeof item ) && throwError('ERR01', '输入了异常字符')
+                if (!(item >= 'A' && item <= 'Z') && !(item >= '0' && item <= '9')) {
+                    throwError('Err01', '请输入合法字符')
+                }
+                if (0 === flag) {
+                    if (item >= 'A' && item <= 'Z') {
+                        _index_++
+                    }
+                    if (item >= '0' && item <= '9') {
+                        if (0 !== _index_) {
+                            flag = 1
+                            _index_ = index
+                        } else {
+                            throwError('Err02', '请输入正确格式的单元格字符串')
+                        }
+                    }
+                } else {
+                    if (item >= 'A' && item <= 'Z') {
+                        throwError('Err02', '请输入正确格式的单元格字符串')
+                    }
+                }
+            }
+        })
+
+        // 行列计算
+        if (errStatus === 'success') {
+            if (1 === flag ) {
+                var res = {
+                    col: parseColString(coord.slice(0, _index_)),
+                    row: coord.slice(_index_) - 0
+                }
+                return res
+            } else {
+                throwError('Err02', '请输入正确格式的单元格字符串')
+                return {}
+            }
+        } else {
+            return {}
+        }
+    }
+    function onInputChange(value) {
+        console.log(ParseCoord(value));
+    }
+</script>
+</html>
