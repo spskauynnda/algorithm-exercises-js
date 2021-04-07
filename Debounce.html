@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Debounce</title>
+</head>
+<style>
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 50vh
+    }
+    .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100px;
+        height: 30px;
+        background-color: #d0a881;
+    }
+</style>
+<body>
+    <div class="container" id="container">
+        <div class="btn" id="btn">
+            <span>防抖</span>
+        </div>
+    </div>
+</body>
+<script>
+    const $ = (id) => document.getElementById(id)
+    const handleClick = function(text) {
+        console.log(this)
+        console.log(text)
+
+    }
+    const debounce = function(func, deplay) {
+        let timer
+        let args = Array.prototype.slice.call(arguments, 2)
+        return function() {
+            clearTimeout(timer)
+            let context = this
+            timer = setTimeout(function(){
+                func.call(context, args)
+            }, deplay)
+        }
+    }
+    $('btn').addEventListener('click', debounce(handleClick, 1000, 'helloworld'))
+
+    // 冒泡/捕获
+    // $('btn').addEventListener('click', function(){
+    //     console.log(2)
+    // }, true)
+    // $('container').addEventListener('click', function(){
+    //     console.log(1)
+    // }, true)
+    // // 1 2
+    // $('btn').addEventListener('click', function(){
+    //     console.log(2)
+    // }, false)
+    // $('container').addEventListener('click', function(){
+    //     console.log(1)
+    // }, false)
+    // // 2 1
+</script>
+</html>

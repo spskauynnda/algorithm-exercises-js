@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    let tasks = "1,3,4,5,8,5,3,6"
+    let depend = "0->2,2->4,2->6"
+
+    const calTaskTime = (tasks, depend) => {
+        let taskQ = tasks.split(',').map((item, index)=>{
+            return [index, parseInt(item)]
+        })
+        let st = depend.split(',').map((item)=>{
+            return item.split('->').map((str)=>{
+                return parseInt(str)
+            })
+        })
+        let map = new Map()  // 0代表已执行 1代表未执行
+        for (let i = 0; i < taskQ.length; i++) {
+            map.set(i, 1)
+        }
+        let res = taskQ.map(() => 0)
+        let total = 0
+        const access = (curIndex) => {
+            for (let i = 0; i < st.length; i++) {
+                if (st[i][0] === curIndex && map.get(st[i][1]) === 1) {
+                    return false
+                }
+            }
+            return true
+        }
+        while (taskQ.length !== 0) {
+            // 检查是否存在异步等待
+            // for (let i = 0; i < st.length; i++) {
+
+                if (access(taskQ[0][0])) {
+                    // 弹出队首 计算对应耗时
+                    total += taskQ[0][1]
+                    res[taskQ[0][0]] = total
+                    map.set(taskQ[0][0], 0)
+                    taskQ.shift()
+                    // console.log(total);
+                } else {
+                    // 塞回队尾
+                    taskQ.push(taskQ.shift())
+                    // console.log(taskQ);
+                }
+            // }
+            // loop++
+        }
+        console.log(res)
+        return res
+    }
+    
+    calTaskTime(tasks, depend)
+</script>
+</html>
