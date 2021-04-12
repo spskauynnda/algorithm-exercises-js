@@ -8,21 +8,40 @@
 
 </body>
 <script>
-    const quickSort =(arr)=> {
-        if (arr.length <= 1)
+    // const quickSort =(arr)=> {
+    //     if (arr.length <= 1)
+    //         return arr
+    //     const pivot = arr.splice(Math.floor(Math.random()*(arr.length)), 1)[0]
+    //     let left = []
+    //     let right = []
+    //     arr.forEach((item, index)=>{
+    //         if (item < pivot) {
+    //             left.push(item)
+    //         } else {
+    //             right.push(item)
+    //         }
+    //     })
+    //     return (quickSort(left).concat(pivot, quickSort(right)))
+    // }
+
+    const quickSort = (arr) => {
+        if (arr.length <= 1) {
             return arr
-        const pivot = arr.splice(Math.floor(Math.random()*(arr.length)), 1)[0]
+        }
+        const pivotIndex = Math.random()*(arr.length) >> 0.1
+        const pivot = arr.splice(pivotIndex, 1)[0]
         let left = []
         let right = []
-        arr.forEach((item, index)=>{
-            if (item < pivot) {
-                left.push(item)
-            } else {
-                right.push(item)
-            }
-        })
-        return (quickSort(left).concat(pivot, quickSort(right)))
+        for (let num of arr) {
+            if (num < pivot)
+                left.push(num)
+            else
+                right.push(num)
+        }
+        return [...quickSort(left), pivot, ...quickSort(right)]
     }
+
+
     const arr = [5,4,8,7,6,2,3,1]
     console.log(quickSort(arr))
 

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * 简述浅拷贝方法
+    * 1. Array.assign()
+    * 2. Array.create()
+    *
+    * 伪深拷贝
+    * 1. JSON.stringify
+    *
+    */
+    let obj = {
+        a: null,
+        b: undefined,
+        c: new RegExp(),
+        d: [
+            null,
+            undefined,
+            {
+                a: null
+            },
+            [1,2,3]
+        ],
+        e: {
+            a: null,
+            b: undefined,
+            c: {
+                a: null
+            },
+            d: [1,2,3]
+        }
+    }
+    console.info(obj)
+    let newObj = JSON.parse(JSON.stringify(obj))
+    console.log(newObj)
+
+    /* 定义一个深拷贝函数，接受目标target参数 */
+    const deepClone = (target) => {
+        let res
+        if (typeof target === 'object') {
+            if (target === null || target.constructor === RegExp) {
+                res = target
+            } else if (Array.isArray(target)){
+                res = []
+                for (let item of target) {
+                    res.push(deepClone(item))
+                }
+            } else {
+                res = {}
+                for (let key in target) {
+                    res[key] = deepClone(target[key])
+                }
+            }
+        } else {
+            res = target
+        }
+        return res
+    }
+    let deepObj = deepClone(obj)
+    console.info(deepObj)
+    // console.log(Object.is(obj, newObj))
+    // console.log(Object.is(obj, deepObj))
+</script>
+</html>

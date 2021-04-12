@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>防抖</title>
+</head>
+<body style="height: 5000px">
+
+</body>
+<script>
+    let i = 0
+    function handle1() {
+        console.log('时间戳：', i++)
+    }
+    function throttle1(fn, delay) {
+        let prev = Date.now()
+        let args = Array.prototype.slice.call(arguments, 2)
+        return function() {
+            let context = this
+            let now = Date.now()
+            if (now - prev >= delay) {
+                fn.apply(context, args)
+                prev = Date.now()
+            }
+        }
+    }
+    window.addEventListener('scroll', throttle1(handle1, 300))
+
+    function handle2() {
+        console.log('定时器：', i++)
+    }
+    function throttle2(fn, delay) {
+        let time = null
+        let args = Array.prototype.slice.call(arguments, 2)
+        return function() {
+            let context = this
+            if (!time) {
+                time = setTimeout(function() {
+                    fn.apply(context, args)
+                    time = null
+                }, delay)
+            }
+        }
+    }
+    window.addEventListener('scroll', throttle2(handle2, 300))
+
+    /*
+    * 定时器会在开始和结尾都触发
+    * */
+
+</script>
+</html>
