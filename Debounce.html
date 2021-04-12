@@ -32,7 +32,6 @@
     const handleClick = function(text) {
         console.log(this)
         console.log(text)
-
     }
     const debounce = function(func, deplay) {
         let timer
@@ -46,21 +45,5 @@
         }
     }
     $('btn').addEventListener('click', debounce(handleClick, 1000, 'helloworld'))
-
-    // 冒泡/捕获
-    // $('btn').addEventListener('click', function(){
-    //     console.log(2)
-    // }, true)
-    // $('container').addEventListener('click', function(){
-    //     console.log(1)
-    // }, true)
-    // // 1 2
-    // $('btn').addEventListener('click', function(){
-    //     console.log(2)
-    // }, false)
-    // $('container').addEventListener('click', function(){
-    //     console.log(1)
-    // }, false)
-    // // 2 1
 </script>
 </html>
