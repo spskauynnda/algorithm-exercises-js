@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    const t = 2     // 读入t
+    const sum = 7   // 循环读入n
+    const k = 1     // 循环读入k
+    // 假设这在循环里面
+    for (let i = 1; i <= sum; i++) {
+        let cur = i
+        for (let j = 0; j < k; j++) {
+            cur *= 2
+            if (cur > sum) {
+                while (cur % 2 === 0) {
+                    cur /= 2
+                }
+            }
+        }
+        console.log(cur)
+    }
+</script>
+</html>

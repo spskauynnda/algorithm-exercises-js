@@ -1,10 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
-$END$
+
 </body>
+<script>
+    let str = 'aab'
+    let arr = str.split('a').reverse().map(item=>item.length)
+    let step = 0
+    let left = 0
+    for (let i = 0; i < arr.length - 1; i++) {
+        left += arr[i]
+        step = (step+left) % 100000007
+        left *= 2 % 100000007
+    }
+    console.log(step)
+</script>
 </html>

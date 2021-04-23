@@ -1,10 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
+<head><meta charset="UTF-8"><title>归并排序</title></head><body></body>
+<script>
+    Array.prototype.mergeSort = function () {
+        const sort = (arr) => {
+            // 二分
+            if (arr.length === 1)  return arr
+            const mid = (arr.length / 2) >> 0.1
+            let l = sort(arr.slice(0, mid))
+            let r = sort(arr.slice(mid, arr.length))
+
+            let res = []
+            while (l.length || r.length) {  // 将有序数组l和r归并合入有序数组res
+                if (l.length && r.length) {  // case 1: 假如l和r都不是空数组
+                    (l[0] < r[0]) ? (res.push(l.shift())) : (res.push(r.shift()))
+                } else {
+                    (l.length) ? (res.push(...l)) : (res.push(...r))  // case 2: 假如l和r中有一个空了
+                    break
+                }
+            }
+            return res
+        }
+        res = sort(this)
+        res.forEach((n, i)=>{
+            this[i] = n
+        })
+    }
+    let arr = [43, 23, 5, 23, 54, 75, 4, 71]
+    arr.mergeSort()
+    console.log(arr)
+</script>
 </html>
