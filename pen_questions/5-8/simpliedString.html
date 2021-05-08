@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+  /*let nums = [
+    ['1','1','1','1','1'],
+    ['1','1','1','1','1'],
+    ['1','1','1','1','1'],
+    ['1','1','1','1','1'],
+    ['2','1','1','1','1']
+  ]*/
+  /*let nums = [
+    ['1','8','1','9','2'],
+    ['7','1','1','7','2'],
+    ['4','7','3','3','9'],
+    ['7','6','9','5','9'],
+    ['2','3','9','6','7']
+  ]*/
+  let nums = []
+  for (let i = 0; i < 5; i++) {
+    nums.push(read_line().split(' '))
+  }
+  let map = new Map()
+  let sum = 0
+  const travel = (n, m, k, str) => {
+    if (k <= 0) {
+      let curStr = str + nums[n][m]
+      if (!map.get(curStr)) {
+        map.set(curStr, 1)
+        sum++
+      }
+      return null
+    }
+    if (n-1 >= 0) travel(n - 1, m, k - 1, str + nums[n][m])
+    if (m-1 >= 0) travel(n, m - 1, k - 1, str + nums[n][m])
+    if (n+1 < 5) travel(n + 1, m, k - 1, str + nums[n][m])
+    if (m+1 < 5) travel(n, m + 1, k - 1, str + nums[n][m])
+
+    return null
+  }
+  for (let i=0; i<5; i++) {
+    for (let j=0; j<5; j++) {
+      travel(i, j, 5, nums[i][j])
+    }
+  }
+  console.log(sum)
+</script>
+</html>

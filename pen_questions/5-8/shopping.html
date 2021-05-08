@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+  let line = read_line().split(' ')
+  const n = parseInt(line[0])
+  const m = parseInt(line[1])
+  // line:  item_name   w_price   c_num
+  let map = new Map()
+  for (let i = 0; i < n; i++) {
+    let line = read_line().split(' ')
+    map.set(line[0], [parseInt(line[1]), parseInt(line[2])])  // item_name: [price, num]
+  }
+  let brokenPosition = 0
+  let benefit = 0
+  for (let i = 0; i < m; i++) {
+    let line = read_line().split(' ')  // item_name   c_num
+    let soldNum = parseInt(line[1])    // soldNum是这一行卖出的数量
+    let l = map.get(line[0])           // l是查询当前行订单商品的存货数
+    if (l && soldNum <= l[1]) {        // 判断存货还够不够
+      benefit += soldNum * l[0]        // sold_Num * w_price
+      map.set(line[0], [l[0], l[1] - soldNum]) // 减去当前存货
+    } else {
+      brokenPosition = i + 1
+      break
+    }
+  }
+
+  if (brokenPosition === 0) {
+    console.log(benefit)
+  } else {
+    console.log(-brokenPosition)
+  }
+
+// let line = '3 3'.split(' ')
+// const n = parseInt(line[0])
+// const m = parseInt(line[1])
+// let map = new Map()
+// let lines1 = [
+//   'apple 1 10',
+//   'pear 1 6',
+//   'bike 100 1'
+// ]
+// for (let i = 0; i < n; i++) {
+//   let line = lines1[i].split(' ')
+//   map.set(line[0], [parseInt(line[1]), parseInt(line[2])])
+// }
+// let brokenPosition = 0
+// let benefit = 0
+// let lines2 = [
+//   'apple 10',
+//   'bike 1',
+//   'bike 1'
+// ]
+// for (let i = 0; i < m; i++) {
+//   let line = lines2[i].split(' ')
+//   let soldNum = parseInt(line[1])
+//   let l = map.get(line[0])
+//   if (l && soldNum <= l[1]) {
+//     benefit += soldNum * l[0]        // sold_Num * w_price
+//     map.set(line[0], [l[0], l[1] - soldNum])
+//   } else {
+//     brokenPosition = i + 1
+//     break
+//   }
+// }
+//
+// if (brokenPosition === 0) {
+//   console.log(benefit)
+// } else {
+//   console.log(-brokenPosition)
+// }
+
+</script>
+</html>
