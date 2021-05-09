@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+  let line = read_line().split(',')
+  let blen = line[0].length
+  let k = parseInt(line[1])
+  // let blen = 4
+  // let k = 2
+  sum = 0
+  for (let i = 1; i < blen; i++) {
+    for (let j = i; j < blen; j++) {
+      sum ++
+    }
+  }
+  console.log(sum)
+
+</script>
+</html>

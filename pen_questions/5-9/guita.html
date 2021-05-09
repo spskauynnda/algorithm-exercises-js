@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+
+  let t = readInt()
+  const fun = (x, a, b, n) => {
+    let dp = [[]]
+    return ddp(0, x, a, b, n, dp.slice())
+  }
+  const ddp = (i, x, a, b, n, dp) => {
+    if (i === n)  return 0
+    if (dp[i][x] !== 0)  return dp[i][x]
+    dp[i][x] = Math.max(dp(i+1, x-Math.min(a,x), a, b, n, dp)+x, dp(i+1, x+a, a, b, n, dp))
+  }
+  for (let i = 0; i < t; i++) {
+    let x = readInt()
+    let a = readInt()
+    let b = readInt()
+    let n = readInt()
+
+  }
+</script>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+  let n = 5
+  let m = 4
+  let k = 3
+  // let n = readInt()
+  // let m = readInt()
+  // let k = readInt()
+  let lines = [
+    [ '1', '1', '2', '2', '1'],
+    [ '1', '1', '5', '4', '4'],
+    [ '2', '2', '5', '4', '1']
+  ]
+
+  let map = new Map()
+  let layer = []
+  let leastCost = 50000000
+  for (let i = 0; i < k; i++) {
+    // let line = read_line().split(' ')
+    let line = lines[i]
+    let mixedKey = line[0] + '&' + line[1]
+    if (mixedKey === '1&1') {
+      layer.push([ line[2], line[3], parseInt(line[4]) ])
+    } else {
+      if (map.get(mixedKey)) {
+        let value = map.get(mixedKey).slice().push( [ line[2], line[3], parseInt(line[4]) ] )
+        map.set(mixedKey, value)
+      } else {
+        let value = [ [ line[2], line[3], parseInt(line[4]) ] ]
+        map.set(mixedKey, value)
+      }
+    }
+  }
+  while (layer.length !== 0) {
+    let cur = layer[0][0] + '&' + layer[0][1]
+    if (cur === n + '&' +  m) {
+      // console.log(layer[0][2])
+      leastCost = Math.min(leastCost, layer[0][2])
+    } else {
+      if (map.has(cur)) {
+        for (item of map.get(cur)) {
+          // item = [u, v, w]
+          layer.push( [ item[0], item[1], item[2] + layer[0][2] ] )
+        }
+      }
+    }
+    layer.shift()
+  }
+  if (leastCost === 50000000) {
+    console.log(-1)
+  } else {
+    console.log(leastCost)
+  }
+
+</script>
+</html>
