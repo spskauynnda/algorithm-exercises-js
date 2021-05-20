@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+  function bestSubCollection(nums, k) {
+    function sum(arr) {
+      return arr.reduce(function(prev, curr, idx, arr){
+        return prev + curr;
+      });
+    }
+    let buffer = nums.map((item)=>{
+      return [item]
+    })
+    let max = -1
+    while (buffer.length !== 0) {
+      let _sum = sum(buffer[0])
+      if (_sum % k === 0) {
+        max = Math.max(max, _sum)
+      }
+      for (num of nums) {
+        if (!buffer[0].includes(num)) {
+          buffer.push([...buffer[0], num])
+        }
+      }
+      buffer.shift()
+    }
+    return max
+  }
+  let nums = [5,4,2,6,9,1,8]
+  let k = 3
+  console.log(bestSubCollection(nums, k))
+</script>
+</html>

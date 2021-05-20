@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+
+
+  let n = 4, k = 3
+  let lines = [
+    [1,2],
+    [3,4],
+    [2,3]
+  ]
+/*  let n = readInt()
+  let k = readInt()*/
+  let leader = new Map()   // 1对1
+  let team = new Map()  // 1对多
+  for (let i = 0; i < k; i++) {
+    // let a = readInt()
+    // let b = readInt()
+    let a = lines[i][0]
+    let b = lines[i][1]
+    // 后继
+    let lead = leader.has(b) ? leader.get(b) : b
+
+    // 前驱
+    let _t = []
+    if (team.has(lead)) {
+      _t = team.get(lead)
+    }
+    if (team.has(a)) {
+      for (item of team.get(a)) {
+        _t.push(item)
+        leader.set(item, lead)
+      }
+      team.set(lead, _t)
+      team.delete(a)
+    } else {
+      _t.push(a)
+      team.set(lead, _t)
+    }
+    leader.set(a, lead)
+  }
+
+  let max = 0
+  team.forEach(item=>{
+    max = Math.max(max, Array.from(new Set(item)).length)
+  })
+  console.log(team)
+</script>
+</html>

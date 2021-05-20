@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+
+  function specialStr(S, C) {
+    const isHuiWen = (str) => {
+      let res = true
+      let mid = (str.length / 2) >> 0.1
+      for (let i=0; i<mid; i++) {
+        if (str[i] !== str[str.length - i - 1]) {
+          res = false
+        }
+      }
+      return res
+    }
+
+    let start = 0
+    let end = 0
+    let max = 0
+    while (start < S.length && end < S.length) {
+      if (C.includes(S[end])) {
+        start = end + 1
+        end = start
+      } else {
+        for (let i=start; i<=end; i++) {
+          if (isHuiWen(S.slice(i,end+1))) {
+            max = Math.max(S.slice(i,end+1).length, max)
+          }
+        }
+        end ++
+      }
+    }
+    return max
+
+  }
+  let S = "abbbbaca"
+  let C = ['b','x']
+  console.log(specialStr(S,C))
+
+
+</script>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+  // 输入
+  let n = readInt()
+  let q = readInt()
+  let arr = read_line().split('')
+
+  for (let i = 0; i < q; i++) {
+    let start = readInt()
+    let end = readInt()
+    for (let j = start - 1; j < end; j++) {
+      arr[j] = 1 - arr[j]
+    }
+  }
+
+  console.log(arr.join(''))
+</script>
+</html>
