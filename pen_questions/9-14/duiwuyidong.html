@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    const [N, Q] = '5 3'.split(' ').map(item => parseInt(item))
+    const K = '0 0 1'.split(' ').map(item => parseInt(item))
+    let pos = []
+    let res = []
+    for (let i = 0; i < N; i++) {
+        pos.push(i)
+    }
+    for (let i = 0; i < Q; i++) {
+        let sum = 0
+        for (let j = 0; j < K[i]; j++) {
+            sum += pos[i+j] - j + 1
+            pos[i+j] = j - 1
+        }
+        res.push(sum)
+    }
+    console.log(res.join(' '));
+</script>
+</html>

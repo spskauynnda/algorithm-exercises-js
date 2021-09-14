@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    const N = 5;
+    const a = [0.9, 0.92, 0.94, 0.92, 0.95];
+    const M = 10;
+
+    let minIndex
+    let pool = []
+    for (let i = 0; i < N; i++) {
+        pool[i] = a[i]
+    }
+
+    for (let i = N + 1; i <= M; i++) {
+        minIndex = 0
+        for (let j = 1; j < N; j++) {
+            if (pool[minIndex] > pool[j]) {
+                minIndex = j
+            }
+        }
+        pool[minIndex] += pool[minIndex] * (1 - a[minIndex])
+    }
+    let p = 1
+    for (let i = 0; i < N; i++) {
+        p *= pool[i]
+    }
+    console.log(p) // 输出p
+
+
+</script>
+</html>

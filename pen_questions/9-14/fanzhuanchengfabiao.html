@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    const stdin = '010'
+    const a = stdin.split('')
+    let len = a.length - 1
+    const count = (arr) => {
+        let res = 0
+        arr.forEach(item => {
+            if (item === '1') res++
+        })
+        return res
+    }
+    let res = []
+    for (; len > 0; len--) {
+        for (let i = 0; i < a.length - len; i++) {
+            for (let j = i + 1; j < a.length - len + 1; j++) {
+                let pre = count(a.slice(i, i + len))
+                let nxt = count(a.slice(j, j + len))
+                if (pre === nxt) {
+                    res = [i + 1, i + len, j + 1, j + len]
+                    break
+                }
+            }
+            if (res.length !== 0) break
+        }
+        if (res.length !== 0) break
+    }
+    console.log(res.join(' '))
+
+
+</script>
+</html>
